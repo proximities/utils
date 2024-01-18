@@ -215,7 +215,7 @@ ShellRun(prms*)
         }
     }
 
-    ShellRun("C:\Users\pblpbl\AppData\Local\Programs\Microsoft VS Code\code.exe", path)
+    ShellRun("C:\Users\" A_UserName "\AppData\Local\Programs\Microsoft VS Code\code.exe", path)
     ; Run("C:\Users\pblpbl\AppData\Local\Programs\Microsoft VS Code\code.exe", path)
 }
 #HotIf
