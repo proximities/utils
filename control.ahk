@@ -100,7 +100,8 @@ CapsLock::
 
 #HotIf WinActive("ahk_exe mintty.exe")
 ^+c::^c
-^c::^+c
+Delete::^+c 
+; ^c::^+c
 ^+v::^v
 ^v::^+v
 #HotIf

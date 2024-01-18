@@ -10,8 +10,8 @@ function get {
     if (!$out) {
         $out = $url.Split("/")[-1]
     }
-    Invoke-WebRequest -Uri $url -OutFile $out
-    Start-Process -FilePath $out -Wait
+    invoke-webrequest -Uri $url -OutFile $out
+    start-process -FilePath $out -Wait
 }
 
 # Example usage
@@ -25,10 +25,10 @@ get "https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip"
 get "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip"
 
 expand-archive -path JetBrainsMono-2.304.zip 
-Expand-Archive -Path FiraCode.zip
+expand-archive -path FiraCode.zip
 
-Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
-PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
+set-executionpolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+powershellget\install-module posh-git -Scope CurrentUser -Force
 
 $pwsh = "C:/Users/pblpbl/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
 new-item $pwsh -force
@@ -46,6 +46,6 @@ $font_files = Get-ChildItem -Path $here -Recurse | Where-Object {
  
 foreach($f in $font_files) {
     $fname = $f.Name
-    Write-Host -ForegroundColor Green "installing $fname..."
+    write-host -ForegroundColor Green "installing $fname..."
     $fonts.CopyHere($f.FullName)
 }
