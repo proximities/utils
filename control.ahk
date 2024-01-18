@@ -22,17 +22,25 @@ RShift & t::
         WinActivate("ahk_exe mintty.exe")
     }
 }
-
 RShift & c::
 {
     ; focus code
-    WinActivate("ahk_exe Code.exe")
+    if WinExist("ahk_exe Code.exe") {
+        WinActivate("ahk_exe Code.exe")
+    }
 }
-
 RShift & e::
 {
     ; focus edge
-    WinActivate("ahk_exe msedge.exe")
+    if WinExist("ahk_exe msedge.exe") {
+        WinActivate("ahk_exe msedge.exe")
+    }
+}
+RShift & v::
+{
+    if WinExist("ahk_exe devenv.exe") {
+        WinActivate("ahk_exe devenv.exe")
+    }
 }
 
 ; F2:: {
