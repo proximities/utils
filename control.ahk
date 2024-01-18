@@ -11,6 +11,7 @@ delay.OnEvent("Change", click_changed)
 
 g.Show()
 
+
 SetCapsLockState("AlwaysOff")
 
 RShift & t::
@@ -22,21 +23,42 @@ RShift & t::
         WinActivate("ahk_exe mintty.exe")
     }
 }
+
+; arrays are fucking 1-indexed
+; and you need "global" for updating a global variable lmfao
+list := WinGetList("ahk_exe Code.exe")
+
+CapsLock::
+{
+    global list
+    list := WinGetList("ahk_exe Code.exe")
+    if code_index > list.Length {
+        code_index := 1
+    }
+}
+
+code_index := 1
 RShift & c::
 {
     ; ; focus code
-    if WinExist("ahk_exe Code.exe") {
-        WinActivate("ahk_exe Code.exe")
-    }
+    ; if WinExist("ahk_exe Code.exe") {
+    ;     WinActivate("ahk_exe Code.exe")
+    ; }
     ; WinGet, WinList, List, ahk_class PSDocC
     ; https://www.autohotkey.com/docs/v1/misc/WinTitle.htm#ahk_id
+    global code_index
+    global list
     ; list := WinGetList("ahk_exe Code.exe")
-    ; for c in list {
-
-    ; }
-    ; Loop %WinList%
-    ;   MsgBox % "Window " A_Index " is " WinList%A_Index% ""
-    ; }
+    if !WinActive("ahk_exe Code.exe") {
+        ; MsgBox(list[code_index])
+        WinActivate("ahk_id " list[code_index])
+    } else {
+        code_index++
+        if code_index == list.Length + 1 {
+            code_index := 1
+        }
+        WinActivate("ahk_id " list[code_index])
+    }
 }
 RShift & e::
 {
@@ -90,12 +112,6 @@ F9::
     Sleep(50)
     Send("{F9}")
 }
-
-; caps lock -> ctrl+shift+f9
-CapsLock::
-{
-    Send("^+{F9}")
-}
 #HotIf
 
 #HotIf WinActive("ahk_exe mintty.exe")
@@ -123,6 +139,7 @@ x::
 SetTimer(Auto, delay.Value)
 SetTimer(AutoRight, 100)
 click_changed(*) {
+    MsgBox("changed to " delay.Value)
     SetTimer(Auto, delay.Value)
 }
 
