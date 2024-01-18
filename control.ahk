@@ -24,10 +24,19 @@ RShift & t::
 }
 RShift & c::
 {
-    ; focus code
+    ; ; focus code
     if WinExist("ahk_exe Code.exe") {
         WinActivate("ahk_exe Code.exe")
     }
+    ; WinGet, WinList, List, ahk_class PSDocC
+    ; https://www.autohotkey.com/docs/v1/misc/WinTitle.htm#ahk_id
+    ; list := WinGetList("ahk_exe Code.exe")
+    ; for c in list {
+
+    ; }
+    ; Loop %WinList%
+    ;   MsgBox % "Window " A_Index " is " WinList%A_Index% ""
+    ; }
 }
 RShift & e::
 {
@@ -89,6 +98,12 @@ CapsLock::
 }
 #HotIf
 
+#HotIf WinActive("ahk_exe mintty.exe")
+^+c::^c
+^c::^+c
+^+v::^v
+^v::^+v
+#HotIf
 
 #HotIf WinActive("ahk_exe VALORANT-Win64-Shipping.exe") or WinActive("ahk_exe Overwatch.exe") or WinActive("ahk_exe javaw.exe")
 z::
